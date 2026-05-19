@@ -1,0 +1,4 @@
+package io.github.maykonalves.mdpaymentplatform.domain.model.response;
+
+public record UserResponse (Long id, String fullName, String cpfCnpj, String email, String userType){
+}
