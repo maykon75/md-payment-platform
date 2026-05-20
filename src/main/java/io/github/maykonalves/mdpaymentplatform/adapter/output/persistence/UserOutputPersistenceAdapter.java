@@ -3,9 +3,11 @@ package io.github.maykonalves.mdpaymentplatform.adapter.output.persistence;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.mapper.IUserOutputMapper;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.repository.IUserRepository;
 import io.github.maykonalves.mdpaymentplatform.application.port.output.IUserOutputPort;
-import io.github.maykonalves.mdpaymentplatform.domain.model.User;
+import io.github.maykonalves.mdpaymentplatform.domain.model.request.UserRequest;
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.UserResponse;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserOutputPersistenceAdapter implements IUserOutputPort {
@@ -21,8 +23,13 @@ public class UserOutputPersistenceAdapter implements IUserOutputPort {
 
 
     @Override
-    public UserResponse userCreate(User user) {
-        return userOutputMapper.toDomain(userRepository.save(userOutputMapper.toEntity(user)));
+    public UserResponse userCreate(UserRequest userRequest) {
+        return userOutputMapper.toDomain(userRepository.save(userOutputMapper.toEntity(userRequest)));
+    }
+
+    @Override
+    public List<UserResponse> getAllUser() {
+        return userOutputMapper.toListDomain(userRepository.findAll());
     }
 
     @Override

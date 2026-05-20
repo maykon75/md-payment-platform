@@ -7,10 +7,9 @@ import io.github.maykonalves.mdpaymentplatform.application.port.input.IUserInput
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -30,5 +29,10 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> userCreate(@RequestBody UserRequestDTO userRequestDTO){
         UserResponse userResponse = userInputPort.userCreate(userInputMapper.userToDomain(userRequestDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(userInputMapper.userToDto(userResponse));
+    }
+
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<UserResponseDTO>> getAll() {
+        return ResponseEntity.ok(userInputMapper.toListDto(userInputPort.getAllUser()));
     }
 }
