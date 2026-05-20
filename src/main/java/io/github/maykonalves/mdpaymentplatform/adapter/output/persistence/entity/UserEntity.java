@@ -1,5 +1,6 @@
 package io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity;
 
+import io.github.maykonalves.mdpaymentplatform.domain.model.UserType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,7 @@ public class UserEntity {
     private String password;
 
     @Column(nullable = false)
-    private String userType;
+    private UserType userType;
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal balance = BigDecimal.ZERO;
