@@ -5,6 +5,7 @@ import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.reposi
 import io.github.maykonalves.mdpaymentplatform.application.port.output.IUserOutputPort;
 import io.github.maykonalves.mdpaymentplatform.domain.model.request.UserRequest;
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.UserResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,21 +24,25 @@ public class UserOutputPersistenceAdapter implements IUserOutputPort {
 
 
     @Override
+    @Transactional
     public UserResponse userCreate(UserRequest userRequest) {
         return userOutputMapper.toDomain(userRepository.save(userOutputMapper.toEntity(userRequest)));
     }
 
     @Override
+    @Transactional
     public List<UserResponse> getAllUser() {
         return userOutputMapper.toListDomain(userRepository.findAll());
     }
 
     @Override
+    @Transactional
     public boolean existsByCpfCnpj(String cpfCnpj) {
         return userRepository.existsByCpfCnpj(cpfCnpj);
     }
 
     @Override
+    @Transactional
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }

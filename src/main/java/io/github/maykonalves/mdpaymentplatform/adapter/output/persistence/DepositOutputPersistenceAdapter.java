@@ -7,6 +7,7 @@ import io.github.maykonalves.mdpaymentplatform.application.exception.NotFoundExc
 import io.github.maykonalves.mdpaymentplatform.application.port.output.IDepositOutputPort;
 import io.github.maykonalves.mdpaymentplatform.domain.model.request.DepositRequest;
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.DepositResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -25,6 +26,7 @@ public class DepositOutputPersistenceAdapter implements IDepositOutputPort {
 
 
     @Override
+    @Transactional
     public DepositResponse deposit(DepositRequest depositRequest) {
         UserEntity userEntity = userRepository.findById(depositRequest.id()).orElseThrow(() -> new NotFoundException("User not found"));
 
