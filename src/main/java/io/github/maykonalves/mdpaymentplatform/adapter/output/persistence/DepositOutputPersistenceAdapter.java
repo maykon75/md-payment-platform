@@ -10,8 +10,6 @@ import io.github.maykonalves.mdpaymentplatform.domain.model.response.DepositResp
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
 @Component
 public class DepositOutputPersistenceAdapter implements IDepositOutputPort {
 
