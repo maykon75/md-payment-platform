@@ -29,7 +29,7 @@ public class UserEntity {
     private String password;
 
     @Column(nullable = false)
-    private UserType userType;
+    private UserTypeEntity userType;
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal balance = BigDecimal.ZERO;

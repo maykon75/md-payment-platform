@@ -1,11 +1,11 @@
 package io.github.maykonalves.mdpaymentplatform.adapter.output.persistence;
 
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserEntity;
+import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserTypeEntity;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.mapper.IDepositOutputMapper;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.repository.IUserRepository;
 import io.github.maykonalves.mdpaymentplatform.application.exception.NotFoundException;
 
-import io.github.maykonalves.mdpaymentplatform.domain.model.UserType;
 import io.github.maykonalves.mdpaymentplatform.domain.model.request.DepositRequest;
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.DepositResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +60,7 @@ class DepositOutputPersistenceAdapterTest {
         userEntity.setCpfCnpj("12345678900");
         userEntity.setEmail("user@email.com");
         userEntity.setPassword("123456");
-        userEntity.setUserType(UserType.COMMON);
+        userEntity.setUserType(UserTypeEntity.COMMON);
         userEntity.setBalance(new BigDecimal("50.00"));
 
         depositResponse = new DepositResponse(

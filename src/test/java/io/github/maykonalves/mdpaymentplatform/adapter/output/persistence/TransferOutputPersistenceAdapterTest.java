@@ -1,6 +1,7 @@
 package io.github.maykonalves.mdpaymentplatform.adapter.output.persistence;
 
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserEntity;
+import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserTypeEntity;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.mapper.ITransferOutputMapper;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.repository.IUserRepository;
 import io.github.maykonalves.mdpaymentplatform.application.exception.NotFoundException;
@@ -57,7 +58,7 @@ class TransferOutputPersistenceAdapterTest {
         payerEntity.setCpfCnpj("12345678900");
         payerEntity.setEmail("payer@email.com");
         payerEntity.setPassword("123456");
-        payerEntity.setUserType(UserType.COMMON);
+        payerEntity.setUserType(UserTypeEntity.COMMON);
         payerEntity.setBalance(new BigDecimal("100.00"));
 
         payeeEntity = new UserEntity();
@@ -67,7 +68,7 @@ class TransferOutputPersistenceAdapterTest {
         payeeEntity.setCpfCnpj("12345678000199");
         payeeEntity.setEmail("payee@email.com");
         payeeEntity.setPassword("123456");
-        payeeEntity.setUserType(UserType.MERCHANT);
+        payeeEntity.setUserType(UserTypeEntity.MERCHANT);
         payeeEntity.setBalance(new BigDecimal("50.00"));
 
         payer = new UserBalance(

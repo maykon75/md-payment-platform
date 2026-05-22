@@ -3,6 +3,7 @@ package io.github.maykonalves.mdpaymentplatform.adapter.input.rest;
 
 import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.dto.request.TransferRequestDTO;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserEntity;
+import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserTypeEntity;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.repository.IUserRepository;
 import io.github.maykonalves.mdpaymentplatform.application.port.output.IAuthorizationOutputPort;
 import io.github.maykonalves.mdpaymentplatform.application.port.output.INotificationOutputPort;
@@ -63,7 +64,7 @@ class TransferControllerTest {
         payer.setCpfCnpj("99945678900");
         payer.setEmail("transfer@gmail.com");
         payer.setPassword("123456");
-        payer.setUserType(UserType.COMMON);
+        payer.setUserType(UserTypeEntity.COMMON);
         payer.setBalance(new BigDecimal("100.00"));
 
         payee = new UserEntity();
@@ -71,7 +72,7 @@ class TransferControllerTest {
         payee.setCpfCnpj("88845678000112");
         payee.setEmail("merchanttransfer@gmail.com");
         payee.setPassword("123456");
-        payee.setUserType(UserType.COMMON);
+        payee.setUserType(UserTypeEntity.COMMON);
         payee.setBalance(new BigDecimal("0.00"));
 
         payer = userRepository.save(payer);

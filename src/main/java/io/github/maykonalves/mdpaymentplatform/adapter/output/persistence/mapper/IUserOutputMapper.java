@@ -1,7 +1,7 @@
 package io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.mapper;
 
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserEntity;
-import io.github.maykonalves.mdpaymentplatform.domain.model.UserType;
+import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserTypeEntity;
 import io.github.maykonalves.mdpaymentplatform.domain.model.request.UserRequest;
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.UserResponse;
 import org.mapstruct.Mapper;
@@ -20,9 +20,9 @@ public interface IUserOutputMapper {
     List<UserResponse> toListDomain(List<UserEntity> userEntityList);
 
     @Named("mapUserType")
-    default UserType mapUserType(String cpfCnpj) {
+    default UserTypeEntity mapUserType(String cpfCnpj) {
         return cpfCnpj.length() == 14
-                ? UserType.MERCHANT
-                : UserType.COMMON;
+                ? UserTypeEntity.MERCHANT
+                : UserTypeEntity.COMMON;
     }
 }

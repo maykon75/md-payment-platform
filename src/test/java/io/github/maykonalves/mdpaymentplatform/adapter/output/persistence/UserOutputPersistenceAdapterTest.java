@@ -1,6 +1,7 @@
 package io.github.maykonalves.mdpaymentplatform.adapter.output.persistence;
 
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserEntity;
+import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.entity.UserTypeEntity;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.mapper.IUserOutputMapper;
 import io.github.maykonalves.mdpaymentplatform.adapter.output.persistence.repository.IUserRepository;
 
@@ -61,7 +62,7 @@ class UserOutputPersistenceAdapterTest {
         userEntity.setCpfCnpj("12345678900");
         userEntity.setEmail("test@gmail.com");
         userEntity.setPassword("123456");
-        userEntity.setUserType(UserType.COMMON);
+        userEntity.setUserType(UserTypeEntity.COMMON);
         userEntity.setBalance(new BigDecimal("0.00"));
 
         userResponse = new UserResponse(
