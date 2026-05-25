@@ -2,6 +2,7 @@ package io.github.maykonalves.mdpaymentplatform.application.usecase;
 
 import io.github.maykonalves.mdpaymentplatform.application.exception.InsufficientBalanceException;
 import io.github.maykonalves.mdpaymentplatform.application.exception.InvalidUserTransferException;
+import io.github.maykonalves.mdpaymentplatform.application.exception.InvalidValueException;
 import io.github.maykonalves.mdpaymentplatform.application.port.input.ITransferInputPort;
 import io.github.maykonalves.mdpaymentplatform.application.port.output.IAuthorizationOutputPort;
 import io.github.maykonalves.mdpaymentplatform.application.port.output.INotificationOutputPort;
@@ -33,10 +34,14 @@ public class TransferUsecase implements ITransferInputPort {
         this.notificationOutputPort = notificationOutputPort;
     }
 
-
     @Override
     @Transactional
     public void tranfer(TransferRequest transferRequest) {
+
+        if (transferRequest.value().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidValueException("Transfer value must be greater than zero");
+        }
+
         UserBalance payer = transferOutputPort.checkPayer(transferRequest.payer());
         UserBalance payee = transferOutputPort.checkPayee(transferRequest.payee());
 
