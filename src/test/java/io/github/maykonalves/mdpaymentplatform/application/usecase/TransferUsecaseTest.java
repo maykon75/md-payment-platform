@@ -97,7 +97,7 @@ class TransferUsecaseTest {
                 .when(notificationOutputPort)
                 .notifyUser();
 
-        transferUsecase.tranfer(transferRequest);
+        transferUsecase.transfer(transferRequest);
 
         assertEquals(
                 new BigDecimal("50.00"),
@@ -127,7 +127,7 @@ class TransferUsecaseTest {
 
         InvalidValueException exception = assertThrows(
                 InvalidValueException.class,
-                () -> transferUsecase.tranfer(request)
+                () -> transferUsecase.transfer(request)
         );
 
         assertEquals(
@@ -149,7 +149,7 @@ class TransferUsecaseTest {
 
         InvalidUserTransferException exception = assertThrows(
                 InvalidUserTransferException.class,
-                () -> transferUsecase.tranfer(transferRequest)
+                () -> transferUsecase.transfer(transferRequest)
         );
 
         assertEquals(
@@ -171,7 +171,7 @@ class TransferUsecaseTest {
 
         InsufficientBalanceException exception = assertThrows(
                 InsufficientBalanceException.class,
-                () -> transferUsecase.tranfer(transferRequest)
+                () -> transferUsecase.transfer(transferRequest)
         );
 
         assertEquals(

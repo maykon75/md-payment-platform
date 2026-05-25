@@ -34,31 +34,40 @@ public class TransferUsecase implements ITransferInputPort {
         this.notificationOutputPort = notificationOutputPort;
     }
 
+    //Transfer method
     @Override
     @Transactional
-    public void tranfer(TransferRequest transferRequest) {
-
+    public void transfer(TransferRequest transferRequest) {
+        //Validate transfer amount before processing
         if (transferRequest.value().compareTo(BigDecimal.ZERO) <= 0) {
             throw new InvalidValueException("Transfer value must be greater than zero");
         }
 
+        //Verify if payer and payee exists
         UserBalance payer = transferOutputPort.checkPayer(transferRequest.payer());
         UserBalance payee = transferOutputPort.checkPayee(transferRequest.payee());
 
+        //Verify that the user for the transfer is valid.
         if(payer.getUserType() == UserType.MERCHANT){
             throw new InvalidUserTransferException("The payer is a merchant, therefore they are not allowed to transfer funds.");
 
         }
+
+        //Verify if the balance is valid
         if(payer.getBalance().subtract(transferRequest.value()).compareTo(BigDecimal.ZERO) < 0){
             throw new InsufficientBalanceException("Insufficient balance");
         }
+        //Update new balance for payer and payee
         payer.setBalance(payer.getBalance().subtract(transferRequest.value()));
         payee.setBalance(payee.getBalance().add(transferRequest.value()));
 
+        //Check if you can make the transfer.
         authorizationOutputPort.authorize();
 
+        //Update new balance in the database.
         transferOutputPort.updateBalances(payer, payee);
 
+        //Notify the user
         notificationOutputPort.notifyUser();
         log.info("######## SUCCESSFUL ########");
 

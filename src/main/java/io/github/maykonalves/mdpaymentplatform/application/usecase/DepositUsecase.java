@@ -1,7 +1,6 @@
 package io.github.maykonalves.mdpaymentplatform.application.usecase;
 
 import io.github.maykonalves.mdpaymentplatform.application.exception.InvalidValueException;
-import io.github.maykonalves.mdpaymentplatform.application.exception.NotFoundException;
 import io.github.maykonalves.mdpaymentplatform.application.port.input.IDepositInputPort;
 import io.github.maykonalves.mdpaymentplatform.application.port.output.IDepositOutputPort;
 import io.github.maykonalves.mdpaymentplatform.domain.model.request.DepositRequest;
@@ -19,11 +18,14 @@ public class DepositUsecase implements IDepositInputPort {
         this.depositOutputPort = depositOutputPort;
     }
 
+    //Deposit method
     @Override
     public DepositResponse deposit(DepositRequest depositRequest) {
+        //Verify that the value to be added is valid, non-negative, and greater than zero.
         if(depositRequest.balance().compareTo(BigDecimal.ZERO) <= 0){
             throw new InvalidValueException("Value must be greater than zero");
         }
+        //Add the new balance to the database.
         return depositOutputPort.deposit(depositRequest);
     }
 }

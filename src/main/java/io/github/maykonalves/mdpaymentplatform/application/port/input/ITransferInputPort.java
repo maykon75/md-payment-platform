@@ -4,5 +4,5 @@ import io.github.maykonalves.mdpaymentplatform.domain.model.request.TransferRequ
 
 public interface ITransferInputPort {
 
-    void tranfer(TransferRequest transferRequest);
+    void transfer(TransferRequest transferRequest);
 }

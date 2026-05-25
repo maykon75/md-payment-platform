@@ -23,7 +23,7 @@ public class TransferController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Void> transfer(@RequestBody TransferRequestDTO transferRequestDTO){
-        transferInputPort.tranfer(transferInputMapper.toDomain(transferRequestDTO));
+        transferInputPort.transfer(transferInputMapper.toDomain(transferRequestDTO));
 
         return ResponseEntity.ok().build();
     }

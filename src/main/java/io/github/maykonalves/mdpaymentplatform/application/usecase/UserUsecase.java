@@ -18,18 +18,23 @@ public class UserUsecase implements IUserInputPort {
         this.userOutputPort = userOutputPort;
     }
 
+    //Method for creating a user
     @Override
     public UserResponse userCreate(UserRequest userRequest) {
+        //Verify if CPF/CNPJ exists
         if(userOutputPort.existsByCpfCnpj(userRequest.cpfCnpj())) {
             throw new DuplicateResourceException("CPF/CNPJ already registered.");
         }
+        //Verifyif EMAIL exists
         if(userOutputPort.existsByEmail(userRequest.email())) {
             throw new DuplicateResourceException("Email already registered.");
         }
 
+        //Create user
         return userOutputPort.userCreate(userRequest);
     }
 
+    //Return all users
     @Override
     public List<UserResponse> getAllUser() {
         return userOutputPort.getAllUser();
