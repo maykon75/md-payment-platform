@@ -13,6 +13,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IUserOutputMapper {
     @Mapping(target = "userType", source = "cpfCnpj", qualifiedByName = "mapUserType")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "balance", ignore = true)
     UserEntity toEntity(UserRequest userRequest);
 
     UserResponse toDomain(UserEntity userEntity);
