@@ -3,6 +3,7 @@ package io.github.maykonalves.mdpaymentplatform.adapter.input.rest;
 import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.dto.mapper.ITransferInputMapper;
 import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.dto.request.TransferRequestDTO;
 import io.github.maykonalves.mdpaymentplatform.application.port.input.ITransferInputPort;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class TransferController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Void> transfer(@RequestBody TransferRequestDTO transferRequestDTO){
+    public ResponseEntity<Void> transfer(@Valid @RequestBody TransferRequestDTO transferRequestDTO){
         transferInputPort.transfer(transferInputMapper.toDomain(transferRequestDTO));
 
         return ResponseEntity.ok().build();

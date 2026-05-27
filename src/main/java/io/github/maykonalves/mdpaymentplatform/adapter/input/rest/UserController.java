@@ -5,6 +5,7 @@ import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.dto.mapper.IUs
 import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.dto.response.UserResponseDTO;
 import io.github.maykonalves.mdpaymentplatform.application.port.input.IUserInputPort;
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.UserResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class UserController {
 
 
     @PostMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<UserResponseDTO> userCreate(@RequestBody UserRequestDTO userRequestDTO){
+    public ResponseEntity<UserResponseDTO> userCreate(@Valid @RequestBody UserRequestDTO userRequestDTO){
         UserResponse userResponse = userInputPort.userCreate(userInputMapper.userToDomain(userRequestDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(userInputMapper.userToDto(userResponse));
     }

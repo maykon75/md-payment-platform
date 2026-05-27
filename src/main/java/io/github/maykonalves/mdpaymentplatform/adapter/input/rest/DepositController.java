@@ -5,6 +5,7 @@ import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.dto.request.De
 import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.dto.response.DepositResponseDTO;
 import io.github.maykonalves.mdpaymentplatform.application.port.input.IDepositInputPort;
 import io.github.maykonalves.mdpaymentplatform.domain.model.response.DepositResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class DepositController {
     }
 
     @PatchMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<DepositResponseDTO> deposit(@RequestBody DepositRequestDTO depositRequestDTO){
+    public ResponseEntity<DepositResponseDTO> deposit(@Valid @RequestBody DepositRequestDTO depositRequestDTO){
         DepositResponse depositResponse = depositInputPort.deposit(depositInputMapper.toDomain(depositRequestDTO));
 
         return ResponseEntity.ok().body(depositInputMapper.toDto(depositResponse));

@@ -1,11 +1,15 @@
 package io.github.maykonalves.mdpaymentplatform.adapter.input.rest.handler;
 
 import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.handler.dto.ErrorDTO;
+import io.github.maykonalves.mdpaymentplatform.adapter.input.rest.handler.dto.ValidationErrorDTO;
 import io.github.maykonalves.mdpaymentplatform.application.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -50,5 +54,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDTO> gatewayTimeoutException(GatewayTimeoutException gatewayTimeoutException) {
         ErrorDTO errorDTO = new ErrorDTO(gatewayTimeoutException.getMessage());
         return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(errorDTO);
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ValidationErrorDTO> handleValidationException(MethodArgumentNotValidException ex) {
+
+        List<String> errors = ex.getBindingResult().getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .toList();
+
+        ValidationErrorDTO validationErrorDTO = new ValidationErrorDTO(errors);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationErrorDTO);
     }
 }
